@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Senses capture test</title>
+<style>
+body{font:18px system-ui;max-width:650px;margin:80px auto;background:#14201e;color:#e4efeb}
+button{font:inherit;padding:12px 24px;margin:12px 8px 12px 0;border:0;border-radius:10px;cursor:pointer}
+p{line-height:1.6;color:#b5c9c1}#state{font-variant-numeric:tabular-nums}
+</style>
+<h1>Senses audio test</h1>
+<p>Low-volume stereo test tones: 440 Hz left, 880 Hz right. This page contains no network requests, microphone access, or user audio.</p>
+<button id="start">Play test tones</button><button id="stop">Stop tones</button>
+<p id="state">Stopped</p>
+<script>
+let context;
+document.querySelector('#start').onclick=async()=>{
+ if(context)await context.close();
+ context=new AudioContext();
+ const merge=context.createChannelMerger(2);merge.connect(context.destination);
+ [440,880].forEach((frequency,i)=>{const oscillator=context.createOscillator();
+ const gain=context.createGain();gain.gain.value=0.025;oscillator.frequency.value=frequency;
+ oscillator.connect(gain);gain.connect(merge,0,i);oscillator.start();});
+ await context.resume();document.querySelector('#state').textContent='Playing · 440 Hz L / 880 Hz R';
+};
+document.querySelector('#stop').onclick=async()=>{if(context)await context.close();context=null;
+document.querySelector('#state').textContent='Stopped';};
+</script>

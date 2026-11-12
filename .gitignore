@@ -1,0 +1,14 @@
+.tools/
+target/
+build/
+DerivedData/
+.DS_Store
+*.xcuserstate
+xcuserdata/
+
+# Locally captured audio, including unfinished recordings.
+*.m4a
+*.wav
+*.partial
+*.m4a.reserve
+*.wav.reserve
