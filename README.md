@@ -2,9 +2,13 @@
 
 Senses records audio from your Mac. Capture a single app, mix several apps into one file, or record everything playing through your current output. You can keep listening on your speakers or headphones while Senses saves the recording locally.
 
+**[Download Senses for Mac](https://github.com/anridev/senses-recorder/releases/latest)** · Apple silicon · macOS 26 or later
+
+Download the app ZIP from the release, double-click it to extract **Senses.app**, and drag the app to **Applications**. Xcode and Rust are only needed to build from source. The 0.1.1 download is ad-hoc signed and has no Apple notarization. If macOS asks you to verify the developer, follow [Apple’s first-open instructions](https://support.apple.com/en-us/102445).
+
 ![Senses Recorder with Safari and Music selected as audio sources](design/Senses-Recorder.png)
 
-## Build and open Senses
+## Build from source
 
 You’ll need an Apple silicon Mac running macOS 26 or later, full Xcode with the macOS 26 SDK selected for command-line builds, and Rust 1.88 or later. Run these commands from the project folder. The bootstrap script installs a project-local Rust toolchain if Cargo is missing and fetches the dependencies pinned in `Cargo.lock`.
 
@@ -56,3 +60,7 @@ bash scripts/soak.sh                      # Four-hour real-time endurance test
 The automated tests use synthetic audio and run silently. Run the codec tests in a normal macOS terminal so Audio Toolbox can reach the AAC encoder. The four-hour tests need approximately 4.5 GB of temporary space and write metrics to `build/soak-report.json`. Hardware observations and remaining manual checks are recorded in [VALIDATION.md](VALIDATION.md).
 
 The [design assets](design/) include the editable S-waveform logo and app icon. Run `bash scripts/brand.sh` to regenerate them from [SensesBrand.swift](native/SensesBrand.swift).
+
+## Reuse the design system
+
+The [design system guide](design/system/README.md) includes a SwiftUI package, a working example for a different app, and portable JSON design tokens. The [release downloads](https://github.com/anridev/senses-recorder/releases/latest) include a standalone copy of the kit.

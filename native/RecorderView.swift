@@ -54,7 +54,7 @@ struct RecorderView: View {
                     RecordingLibrary(model: model)
                 } else {
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 22) {
+                        VStack(alignment: .leading, spacing: SensesStyle.sectionSpacing) {
                             SessionMonitor(model: model)
                             if let error = model.error {
                                 Label(error, systemImage: "exclamationmark.triangle")
@@ -67,8 +67,8 @@ struct RecorderView: View {
                             }
                             RecordingOptions(model: model, choosingApps: $choosingApps)
                         }
-                        .frame(maxWidth: 760)
-                        .padding(24)
+                        .frame(maxWidth: SensesStyle.maxContentWidth)
+                        .padding(SensesStyle.pageInset)
                         .frame(maxWidth: .infinity)
                     }
                 }

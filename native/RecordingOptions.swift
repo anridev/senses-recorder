@@ -5,68 +5,60 @@ struct RecordingOptions: View {
     @Binding var choosingApps: Bool
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Recording Options").font(.headline)
-            VStack(spacing: 0) {
-                LabeledContent {
-                    Picker("Audio Source", selection: $model.allAudio) {
-                        Text("All System Audio").tag(true)
-                        Text("Selected Apps").tag(false)
-                    }
-                    .labelsHidden().pickerStyle(.segmented).fixedSize()
-                } label: {
-                    Label("Audio Source", systemImage: "waveform")
+        SensesSettingsGroup("Recording Options") {
+            LabeledContent {
+                Picker("Audio Source", selection: $model.allAudio) {
+                    Text("All System Audio").tag(true)
+                    Text("Selected Apps").tag(false)
                 }
-                if !model.allAudio {
-                    HStack(alignment: .top, spacing: 10) {
-                        if model.selectedApps.isEmpty {
-                            Text("Choose at least one app.")
-                                .font(.callout).foregroundStyle(.secondary)
-                            Spacer()
-                        } else {
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 135), alignment: .leading)],
-                                      alignment: .leading, spacing: 7) {
-                                ForEach(model.selectedApps) { app in
-                                    SourceAppLabel(app: app, iconSize: 22)
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        Button("Choose Apps…") { choosingApps = true }.fixedSize()
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 28).padding(.bottom, 12)
-                }
-                Divider()
-                LabeledContent {
-                    Picker("File Format", selection: $model.format) {
-                        Text("M4A · AAC").tag("m4a")
-                        Text("WAV · 24-bit PCM").tag("wav")
-                    }
-                    .labelsHidden().fixedSize()
-                } label: {
-                    Label("File Format", systemImage: "music.note")
-                }
-                Divider()
-                LabeledContent {
-                    HStack(spacing: 9) {
-                        Text(model.displayDirectory)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1).truncationMode(.middle)
-                            .help(model.directory.path)
-                        Button("Change…", action: model.chooseDirectory)
-                    }
-                } label: {
-                    Label("Save To", systemImage: "folder")
-                }
+                .labelsHidden().pickerStyle(.segmented).fixedSize()
+            } label: {
+                Label("Audio Source", systemImage: "waveform")
             }
-            .labelStyle(OptionsLabelStyle())
-            .labeledContentStyle(OptionsRowStyle())
-            .padding(.horizontal, 15)
-            .background(.background.secondary, in: RoundedRectangle(cornerRadius: 14))
-            .overlay { RoundedRectangle(cornerRadius: 14).strokeBorder(.primary.opacity(0.08)) }
-            .disabled(model.status.isActive || model.busy)
+            if !model.allAudio {
+                HStack(alignment: .top, spacing: 10) {
+                    if model.selectedApps.isEmpty {
+                        Text("Choose at least one app.")
+                            .font(.callout).foregroundStyle(.secondary)
+                        Spacer()
+                    } else {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 135), alignment: .leading)],
+                                  alignment: .leading, spacing: 7) {
+                            ForEach(model.selectedApps) { app in
+                                SourceAppLabel(app: app, iconSize: 22)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    Button("Choose Apps…") { choosingApps = true }.fixedSize()
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 28).padding(.bottom, 12)
+            }
+            Divider()
+            LabeledContent {
+                Picker("File Format", selection: $model.format) {
+                    Text("M4A · AAC").tag("m4a")
+                    Text("WAV · 24-bit PCM").tag("wav")
+                }
+                .labelsHidden().fixedSize()
+            } label: {
+                Label("File Format", systemImage: "music.note")
+            }
+            Divider()
+            LabeledContent {
+                HStack(spacing: 9) {
+                    Text(model.displayDirectory)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1).truncationMode(.middle)
+                        .help(model.directory.path)
+                    Button("Change…", action: model.chooseDirectory)
+                }
+            } label: {
+                Label("Save To", systemImage: "folder")
+            }
         }
+        .disabled(model.status.isActive || model.busy)
     }
 }
 
@@ -75,40 +67,7 @@ struct SourceAppLabel: View {
     let iconSize: CGFloat
 
     var body: some View {
-        HStack(spacing: 6) {
-            Group {
-                if let icon = app.icon {
-                    Image(nsImage: icon).resizable().aspectRatio(contentMode: .fit)
-                } else {
-                    Image(systemName: "app").resizable().aspectRatio(contentMode: .fit)
-                }
-            }
-            .frame(width: iconSize, height: iconSize)
-            .accessibilityHidden(true)
-            Text(app.name).lineLimit(2)
-        }
-        .help(app.name)
-    }
-}
-
-private struct OptionsLabelStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(spacing: 10) {
-            configuration.icon.foregroundStyle(.secondary).frame(width: 18)
-            configuration.title
-        }
-    }
-}
-
-private struct OptionsRowStyle: LabeledContentStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(spacing: 12) {
-            configuration.label.fixedSize()
-            Spacer(minLength: 0)
-            configuration.content
-        }
-        .padding(.vertical, 10)
-        .frame(minHeight: 45)
+        SensesIconLabel(app.name, icon: app.icon.map { Image(nsImage: $0) }, size: iconSize)
     }
 }
 

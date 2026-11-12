@@ -1,5 +1,10 @@
 // !$*UTF8*$!
 { archiveVersion = 1; classes = {}; objectVersion = 56; objects = {
+F00000000000000000000010 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensesComponents.swift; sourceTree = "<group>"; };
+B00000000000000000000010 = {isa = PBXBuildFile; fileRef = F00000000000000000000010; };
+F00000000000000000000011 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensesStereoMeter.swift; sourceTree = "<group>"; };
+B00000000000000000000011 = {isa = PBXBuildFile; fileRef = F00000000000000000000011; };
+A00000000000000000000017 = {isa = PBXGroup; children = (F00000000000000000000010, F00000000000000000000011); name = SensesDesignSystem; path = Sources/SensesDesignSystem; sourceTree = "<group>"; };
 F00000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 B00000000000000000000004 = {isa = PBXBuildFile; fileRef = F00000000000000000000004; };
 A00000000000000000000016 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B00000000000000000000004); runOnlyForDeploymentPostprocessing = 0; };
@@ -20,12 +25,12 @@ B00000000000000000000008 = {isa = PBXBuildFile; fileRef = F000000000000000000000
 F00000000000000000000009 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingOptions.swift; sourceTree = "<group>"; };
 B00000000000000000000009 = {isa = PBXBuildFile; fileRef = F00000000000000000000009; };
 A00000000000000000000001 = {isa = PBXProject; attributes = {LastSwiftUpdateCheck = 2600; LastUpgradeCheck = 2600; }; buildConfigurationList = A00000000000000000000010; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; knownRegions = (en, Base); mainGroup = A00000000000000000000002; productRefGroup = A00000000000000000000004; projectDirPath = ""; projectRoot = ""; targets = (A00000000000000000000005); };
-A00000000000000000000002 = {isa = PBXGroup; children = (A00000000000000000000003, A00000000000000000000004); sourceTree = "<group>"; };
+A00000000000000000000002 = {isa = PBXGroup; children = (A00000000000000000000003, A00000000000000000000017, A00000000000000000000004); sourceTree = "<group>"; };
 A00000000000000000000003 = {isa = PBXGroup; path = native; children = (F00000000000000000000001, F00000000000000000000002, F00000000000000000000003, F00000000000000000000004, F00000000000000000000005, F00000000000000000000007, F00000000000000000000008, F00000000000000000000009, F00000000000000000000006); sourceTree = "<group>"; };
 A00000000000000000000004 = {isa = PBXGroup; name = Products; children = (A00000000000000000000006); sourceTree = "<group>"; };
 A00000000000000000000005 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000011; buildPhases = (A00000000000000000000009, A00000000000000000000007, A00000000000000000000008, A00000000000000000000016); buildRules = (); dependencies = (); name = Senses; productName = Senses; productReference = A00000000000000000000006; productType = "com.apple.product-type.application"; };
 A00000000000000000000006 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Senses.app; sourceTree = BUILT_PRODUCTS_DIR; };
-A00000000000000000000007 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B00000000000000000000001, B00000000000000000000002, B00000000000000000000003, B00000000000000000000005, B00000000000000000000007, B00000000000000000000008, B00000000000000000000009, B00000000000000000000006); runOnlyForDeploymentPostprocessing = 0; };
+A00000000000000000000007 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B00000000000000000000010, B00000000000000000000011, B00000000000000000000001, B00000000000000000000002, B00000000000000000000003, B00000000000000000000005, B00000000000000000000007, B00000000000000000000008, B00000000000000000000009, B00000000000000000000006); runOnlyForDeploymentPostprocessing = 0; };
 A00000000000000000000008 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 A00000000000000000000009 = {isa = PBXShellScriptBuildPhase; buildActionMask = 2147483647; files = (); inputPaths = (); outputPaths = (); alwaysOutOfDate = 1; name = "Build Rust Engine"; runOnlyForDeploymentPostprocessing = 0; shellPath = /bin/bash; shellScript = "set -euo pipefail\nsource \"$SRCROOT/scripts/env.sh\"\ncd \"$SRCROOT\"\ncargo build --release --locked\n"; };
 A00000000000000000000010 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000012, A00000000000000000000013); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
